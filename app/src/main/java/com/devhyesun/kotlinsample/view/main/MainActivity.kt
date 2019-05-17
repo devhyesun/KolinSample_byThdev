@@ -5,16 +5,13 @@ import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import com.devhyesun.kotlinsample.R
 import com.devhyesun.kotlinsample.util.replace
+import com.devhyesun.kotlinsample.view.main.home.HomeFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private val homeFragment by lazy {
-        HomeFragment().apply {
-            arguments = Bundle().apply {
-                putInt(HomeFragment.KEY_TITLE, R.string.title_home)
-            }
-        }
+        HomeFragment()
     }
 
     private val cameraFragment by lazy {
