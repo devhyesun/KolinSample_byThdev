@@ -8,7 +8,12 @@ object ImageRepository: ImageDataSource {
         ImageLocalData()
     }
 
+    private val imageRemoteData by lazy {
+        ImageRemoteData()
+    }
+
     override fun loadImageList(imageDataList: (List<ImageData>) -> Unit, size: Int) {
-        imageLocalData.loadImageList(imageDataList, size)
+//        imageLocalData.loadImageList(imageDataList, size)
+        imageRemoteData.loadImageList(imageDataList, size)
     }
 }
