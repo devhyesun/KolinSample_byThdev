@@ -7,8 +7,9 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.devhyesun.kotlinsample.R
-import com.devhyesun.kotlinsample.data.source.image.ImageRepository
+import com.devhyesun.kotlinsample.data.source.flickr.FlickrRepository
 import com.devhyesun.kotlinsample.view.main.home.adapter.ImageRecyclerAdapter
 import com.devhyesun.kotlinsample.view.main.home.presenter.HomeContract
 import com.devhyesun.kotlinsample.view.main.home.presenter.HomePresenter
@@ -16,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment(), HomeContract.View {
     private val homePresenter by lazy {
-        HomePresenter(this@HomeFragment, ImageRepository, imageRecyclerAdapter)
+        HomePresenter(this@HomeFragment, FlickrRepository, imageRecyclerAdapter)
     }
 
     private val imageRecyclerAdapter: ImageRecyclerAdapter by lazy {
@@ -29,7 +30,7 @@ class HomeFragment : Fragment(), HomeContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        homePresenter.loadImage()
+        homePresenter.loadFlickrImage()
 
         recycler_view.run {
             adapter = imageRecyclerAdapter
@@ -51,6 +52,16 @@ class HomeFragment : Fragment(), HomeContract.View {
         progressBar.visibility = View.VISIBLE
     }
 
+    override fun showLoadFail() {
+        if(isDetached) return
+            Toast.makeText(context, "Load Fail", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showLoadFail(message: String) {
+        if(isDetached) return
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    }
+
     private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
@@ -60,7 +71,7 @@ class HomeFragment : Fragment(), HomeContract.View {
             var firstVisibleItem = (recyclerView.layoutManager as? GridLayoutManager)?.findFirstVisibleItemPosition() ?: 0
 
             if(!homePresenter.isLoading && (firstVisibleItem + visibleItemCount >= totalItemCount - 7)) {
-                homePresenter.loadImage()
+                homePresenter.loadFlickrImage()
             }
         }
     }

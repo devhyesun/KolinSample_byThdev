@@ -1,9 +1,9 @@
 package com.devhyesun.kotlinsample.view.main.home.adapter.model
 
-import com.devhyesun.kotlinsample.data.ImageData
+import com.devhyesun.kotlinsample.data.Photo
 
 interface ImageRecyclerModel {
-    fun addItem(imageData: ImageData)
+    fun addItem(photo: Photo)
 
     fun getItemCount(): Int
 
