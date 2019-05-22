@@ -1,5 +1,6 @@
 package com.devhyesun.kotlinsample.view.main.home.presenter
 
+import android.util.Log
 import com.devhyesun.kotlinsample.data.PhotoResponse
 import com.devhyesun.kotlinsample.data.source.flickr.FlickrRepository
 import com.devhyesun.kotlinsample.view.main.home.adapter.model.ImageRecyclerModel
@@ -17,6 +18,13 @@ class HomePresenter(
 
     private val perPage = 50
     private var page = 0
+
+    init {
+        imageRecyclerModel.onClick = { position ->
+            Log.i("_hs", "photoid :  ${imageRecyclerModel.getItem(position).id}")
+            view.showBottomSheetDialog(imageRecyclerModel.getItem(position).id)
+        }
+    }
 
     override fun loadFlickrImage() {
         flickrRepository.getSearchPhoto("cat", ++page, perPage)

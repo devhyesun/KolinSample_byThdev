@@ -2,6 +2,8 @@ package com.devhyesun.kotlinsample.view.main.home.presenter
 
 interface HomeContract {
     interface  View {
+        fun showBottomSheetDialog(photoId: String)
+
         fun hideProgress()
         fun showProgress()
 

@@ -12,5 +12,7 @@ class FlickrRemoteData: FlickrDataSource {
     private val flickrServiceInterface = createRetrofit(FlickrServiceInterface::class.java, FLICKR_URL)
 
     override fun getSearchPhoto(keyword: String, page: Int, perPage: Int)
-            = flickrServiceInterface.getFlickrRecentPhotos(text = keyword, page = page, perPage = perPage)
+            = flickrServiceInterface.getRecentPhotos(text = keyword, page = page, perPage = perPage)
+
+    override fun getPhotoDetail(photoId: String) = flickrServiceInterface.getPhotoDetail(photoId)
 }

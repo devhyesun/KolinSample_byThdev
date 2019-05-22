@@ -10,8 +10,14 @@ import com.devhyesun.kotlinsample.data.ImageData
 import com.devhyesun.kotlinsample.data.Photo
 import kotlinx.android.synthetic.main.item_image_view.view.*
 
-class ImageViewHolder(context: Context?, parent: ViewGroup?):
+class ImageViewHolder(onClick:(Int)->Unit, context: Context?, parent: ViewGroup?):
     RecyclerView.ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_image_view, parent, false)) {
+
+    init {
+        itemView.setOnClickListener {
+            onClick(adapterPosition)
+        }
+    }
 
     fun onBind(item: Photo) {
         itemView.onBind(item)

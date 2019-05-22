@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.devhyesun.kotlinsample.R
 import com.devhyesun.kotlinsample.data.source.flickr.FlickrRepository
+import com.devhyesun.kotlinsample.view.main.datail.DetailImageBottomSheet
 import com.devhyesun.kotlinsample.view.main.home.adapter.ImageRecyclerAdapter
 import com.devhyesun.kotlinsample.view.main.home.presenter.HomeContract
 import com.devhyesun.kotlinsample.view.main.home.presenter.HomePresenter
@@ -42,6 +43,12 @@ class HomeFragment : Fragment(), HomeContract.View {
     override fun onDestroyView() {
         super.onDestroyView()
         recycler_view.removeOnScrollListener(recyclerViewOnScrollListener)
+    }
+
+    override fun showBottomSheetDialog(photoId: String) {
+        if(isDetached) return
+
+        DetailImageBottomSheet.create(photoId).show(activity?.supportFragmentManager, "DetailImageBottomSheet")
     }
 
     override fun hideProgress() {

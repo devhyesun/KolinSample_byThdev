@@ -10,8 +10,10 @@ import com.devhyesun.kotlinsample.view.main.home.adapter.model.ImageRecyclerMode
 class ImageRecyclerAdapter(private val context: Context?): RecyclerView.Adapter<RecyclerView.ViewHolder>(), ImageRecyclerModel{
     private val list = mutableListOf<Photo>()
 
+    override lateinit var onClick: (Int) -> Unit
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return ImageViewHolder(context, parent)
+        return ImageViewHolder(onClick, context, parent)
     }
 
     override fun getItemCount() = list.size
@@ -22,6 +24,10 @@ class ImageRecyclerAdapter(private val context: Context?): RecyclerView.Adapter<
 
     override fun addItem(photo: Photo) {
         list.add(photo)
+    }
+
+    override fun getItem(position: Int): Photo {
+        return list[position]
     }
 
     override fun notifyDataSetChang() {
