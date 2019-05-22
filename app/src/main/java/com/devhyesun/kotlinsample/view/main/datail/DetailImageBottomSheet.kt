@@ -15,6 +15,9 @@ import com.devhyesun.kotlinsample.data.source.flickr.FlickrRepository
 import com.devhyesun.kotlinsample.view.main.datail.presenter.DetailImageContract
 import com.devhyesun.kotlinsample.view.main.datail.presenter.DetailImagePresenter
 import kotlinx.android.synthetic.main.layout_photo_detail.*
+import android.support.customtabs.CustomTabsIntent
+import android.net.Uri
+
 
 class DetailImageBottomSheet : BottomSheetDialogFragment(), DetailImageContract.View {
 
@@ -92,7 +95,7 @@ class DetailImageBottomSheet : BottomSheetDialogFragment(), DetailImageContract.
         }
 
         img_web.setOnClickListener {
-
+            detailImagePresenter.loadFlickrWebPage()
         }
 
         detailImagePresenter.loadDetailInfo(arguments?.getString(KEY_PHOTO_ID)!!)
@@ -116,5 +119,13 @@ class DetailImageBottomSheet : BottomSheetDialogFragment(), DetailImageContract.
         tv_date.text = date
         tv_viewer_count.text = viewCount
         tv_comment_count.text = commentCount
+    }
+
+    override fun showFlickrWebPage(url: String) {
+        CustomTabsIntent.Builder().apply {
+            setToolbarColor(resources.getColor(R.color.colorPrimary))
+        }.build().run {
+            launchUrl(context, Uri.parse(url))
+        }
     }
 }
